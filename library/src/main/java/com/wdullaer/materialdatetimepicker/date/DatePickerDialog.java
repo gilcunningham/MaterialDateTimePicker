@@ -119,7 +119,7 @@ public class DatePickerDialog extends DialogFragment implements
     private HashSet<OnDateChangedListener> mListeners = new HashSet<>();
     private DialogInterface.OnCancelListener mOnCancelListener;
     private DialogInterface.OnDismissListener mOnDismissListener;
-    private List<OnMonthChangedListener> monthChangedListeners = new ArrayList<>();
+    private List<OnMonthChangedListener> mMonthChangedListeners = new ArrayList<>();
 
     private AccessibleDateAnimator mAnimator;
 
@@ -383,14 +383,14 @@ public class DatePickerDialog extends DialogFragment implements
         mDayPickerView.setOnMonthChangedListener(new DayPickerGroup.OnMonthChangedListener() {
             @Override
             public void onMonthIncremented() {
-                for (OnMonthChangedListener l : monthChangedListeners) {
+                for (OnMonthChangedListener l : mMonthChangedListeners) {
                     l.onMonthIncremented();
                 }
             }
 
             @Override
             public void onMonthDecremented() {
-                for (OnMonthChangedListener l : monthChangedListeners) {
+                for (OnMonthChangedListener l : mMonthChangedListeners) {
                     l.onMonthDecremented();
                 }
             }
@@ -1153,12 +1153,12 @@ public class DatePickerDialog extends DialogFragment implements
 
     @Override
     public void addOnMonthChangedListener(OnMonthChangedListener listener) {
-        monthChangedListeners.add(listener);
+        mMonthChangedListeners.add(listener);
     }
 
     @Override
     public void removeOnMonthChangedListener(OnMonthChangedListener listener) {
-        monthChangedListeners.remove(listener);
+        mMonthChangedListeners.remove(listener);
     }
 
     @Override

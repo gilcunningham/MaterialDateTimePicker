@@ -150,12 +150,12 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
     protected void refreshAdapter() {
         if (mAdapter == null) {
             mAdapter = createMonthAdapter(mController);
+            setAdapter(mAdapter);
         } else {
-            mAdapter.setSelectedDay(mSelectedDay);
+            //mAdapter.setSelectedDay(mSelectedDay);
             if (pageListener != null) pageListener.onPageChanged(getMostVisiblePosition());
+            swapAdapter(mAdapter, false);
         }
-        // refresh the view with the new parameters
-        setAdapter(mAdapter);
     }
 
     public abstract MonthAdapter createMonthAdapter(DatePickerController controller);

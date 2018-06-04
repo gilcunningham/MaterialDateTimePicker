@@ -872,6 +872,17 @@ public class DatePickerDialog extends DialogFragment implements
     }
 
     /**
+     * Updates the list of days which are the only valid selections.
+     * Setting this value will take precedence over using setMinDate() and setMaxDate()
+     *
+     * @param selectableDays an Array of Calendar Objects containing the selectable dates
+     */
+    public void updateSelectableDays(Calendar[] selectableDays) {
+        mDefaultLimiter.setSelectableDays(selectableDays);
+        if (mDayPickerView != null) mDayPickerView.onUpdate();
+    }
+
+    /**
      * @return an Array of Calendar objects containing the list with selectable items. null if no restriction is set
      */
     @SuppressWarnings("unused")

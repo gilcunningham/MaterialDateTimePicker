@@ -136,6 +136,14 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
         refreshAdapter();
     }
 
+    /**
+     * Updates the existing adapter.  This should be called when the underlying
+     * data set has changed.
+     */
+    public void onUpdate() {
+        updateAdapter();
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
@@ -150,12 +158,22 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
     protected void refreshAdapter() {
         if (mAdapter == null) {
             mAdapter = createMonthAdapter(mController);
-            setAdapter(mAdapter);
         } else {
-            //mAdapter.setSelectedDay(mSelectedDay);
+            mAdapter.setSelectedDay(mSelectedDay);
             if (pageListener != null) pageListener.onPageChanged(getMostVisiblePosition());
-            swapAdapter(mAdapter, false);
         }
+        // refresh the view with the new parameters
+        setAdapter(mAdapter);
+    }
+
+    /**
+     * Update the existing adapter.
+     */
+    protected void updateAdapter() {
+        if (pageListener != null) {
+            pageListener.onPageChanged(getMostVisiblePosition());
+        }
+        swapAdapter(mAdapter, false);
     }
 
     public abstract MonthAdapter createMonthAdapter(DatePickerController controller);
